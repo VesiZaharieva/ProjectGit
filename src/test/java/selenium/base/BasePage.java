@@ -13,11 +13,13 @@ import java.time.Duration;
 public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
+    public WebDriverWait waitToBeStale;
 
     public BasePage() {
         this.driver = DriverFactory.getDriver();
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(12));
+        waitToBeStale  =new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public void waitForElementToBeVisible(WebElement element) {
@@ -29,8 +31,7 @@ public class BasePage {
     }
 
     public void waitForElementToBeStale(WebElement element) {
-
-        wait.until(ExpectedConditions.stalenessOf(element));
+        waitToBeStale.until(ExpectedConditions.stalenessOf(element));
     }
 
     public void clickWithJS(WebElement element) {

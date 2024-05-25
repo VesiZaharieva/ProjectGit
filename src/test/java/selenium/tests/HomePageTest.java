@@ -5,14 +5,15 @@ import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import selenium.base.MainTest;
 import selenium.pages.HomePage;
-import selenium.pages.RegistrationPage;
+import selenium.pages.SignUpPageEmail;
+
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
 public class HomePageTest extends MainTest {
     HomePage homepage;
-    RegistrationPage registrationPage;
+    SignUpPageEmail signUpPageEmail;
 
     @Epic("Home page loading")
     @Story("Successful home page opening")
@@ -28,8 +29,8 @@ public class HomePageTest extends MainTest {
     public void startRegistration() {
         homepage = new HomePage();
         homepage.clickSignUpButton();
-        registrationPage = new RegistrationPage();
-        assertTrue(registrationPage.emailContainerDisplayed());
+        signUpPageEmail = new SignUpPageEmail();
+        assertTrue(signUpPageEmail.emailContainerDisplayed());
     }
 
 
