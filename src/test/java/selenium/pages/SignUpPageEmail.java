@@ -29,10 +29,12 @@ public class SignUpPageEmail extends BasePage {
     }
     @Step("Enter a valid e-mail")
     public void enterValidEmail(String email) {
+
         emailField.sendKeys(email);
     }
     @Step("Enter a valid e-mail with space in front it")
     public void enterValidEmailWithSpaceInfront(String email) {
+
         emailField.sendKeys(" " + email);
         }
 
@@ -60,12 +62,13 @@ public class SignUpPageEmail extends BasePage {
             return emailErrorMessage.getText();
     }
 
-    @Step("Check the Continue button color")
-    public String getEmailContinueButtonColor() {
-        return emailContinueButton.getCssValue("color");
+    @Step("Verify the e-mail continue button color")
+    public Boolean verifyEmailContinueButtonColor(String color) {
+        waitForElementColor(emailContinueButton, color);
+        return emailContinueButton.getCssValue("color").equals(color);
     }
 
-    @Step("Continue after e-mail entering")
+    @Step("Clich e-mail continue button")
     public void clickContinueButton() {
         waitForElementTobeClickable(emailContinueButton);
         emailContinueButton.click();
@@ -73,6 +76,7 @@ public class SignUpPageEmail extends BasePage {
 
     @Step("Check the e-mail continue button invisibility")
     public Boolean emailContinueButtonInvisible() {
+
         return emailContinueButton.isDisplayed();
     }
 }
