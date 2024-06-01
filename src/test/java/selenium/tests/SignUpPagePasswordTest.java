@@ -51,7 +51,7 @@ public class SignUpPagePasswordTest extends MainTest {
     @Story("Enter valid password")
     @Severity(SeverityLevel.NORMAL)
     @Test(dataProvider = "valid-password")
-    public void enterValidPassword(String email, String password, String validityText, String text1, String text2, String text3, String text4, String text5, String text6, String buttonColor, String messageColor) {
+    public void enterValidPassword(String email, String password, String validityText, String text1, String text2, String text3, String text4, String text5, String text6, String buttonColor, String color) {
         signUpPageEmail = new SignUpPageEmail();
         signUpPagePassword = new SignUpPagePassword();
         signUpPageEmail.enterValidEmail(email);
@@ -60,12 +60,16 @@ public class SignUpPagePasswordTest extends MainTest {
         signUpPagePassword.enterPassword(password);
         assertTrue(signUpPagePassword.verifyPasswordContinueButtonColor(buttonColor));
         assertTrue(signUpPagePassword.displayPasswordMessage());
-        assertEquals(signUpPagePassword.getValidityPasswordMessageColor(), messageColor);
+        assertEquals(signUpPagePassword.getValidityPasswordMessageColor(), color);
         assertEquals(signUpPagePassword.getValidityPasswordMessageText(), validityText);
         assertEquals(signUpPagePassword.getPasswordMessageText2(), text2);
         assertEquals(signUpPagePassword.getPasswordMessageText4(), text4);
         assertEquals(signUpPagePassword.getPasswordMessageText5(), text5);
         assertEquals(signUpPagePassword.getPasswordMessageText6(), text6);
+        assertTrue(signUpPagePassword.verifyPasswordValidityLines());
+        assertEquals(signUpPagePassword.getFirstValidityLineColor(), color);
+        assertEquals(signUpPagePassword.getSecondValidityLineColor(), color);
+        assertEquals(signUpPagePassword.getThirdValidityLineColor(), color);
 
             }
 
@@ -74,7 +78,7 @@ public class SignUpPagePasswordTest extends MainTest {
     @Story("Enter not valid password")
     @Severity(SeverityLevel.NORMAL)
     @Test(dataProvider = "notvalid-password")
-    public void enterNotValidPassword1(String email, String password, String validityText, String text1, String text2, String text3, String text4, String text5, String text6, String messageColor) {
+    public void enterNotValidPassword1(String email, String password, String validityText, String text1, String text2, String text3, String text4, String text5, String text6, String color) {
         signUpPageEmail = new SignUpPageEmail();
         signUpPageEmail = new SignUpPageEmail();
         signUpPagePassword = new SignUpPagePassword();
@@ -83,19 +87,22 @@ public class SignUpPagePasswordTest extends MainTest {
         signUpPagePassword.passwordContainerIsDisplayed();
         signUpPagePassword.enterPassword(password);
         assertTrue(signUpPagePassword.displayPasswordMessage());
-        assertEquals(signUpPagePassword.getValidityPasswordMessageColor(), messageColor);
+        assertEquals(signUpPagePassword.getValidityPasswordMessageColor(), color);
         assertEquals(signUpPagePassword.getValidityPasswordMessageText(), validityText);
         assertEquals(signUpPagePassword.getPasswordMessageText2(), text2);
         assertEquals(signUpPagePassword.getPasswordMessageText4(), text4);
         assertEquals(signUpPagePassword.getPasswordMessageText5(), text5);
         assertEquals(signUpPagePassword.getPasswordMessageText6(), text6);
+        assertTrue(signUpPagePassword.verifyPasswordValidityLines());
+        assertEquals(signUpPagePassword.getFirstValidityLineColor(), color);
+
     }
     @Epic("Sign up a new user")
     @Feature("Password entering")
     @Story("Enter not valid password")
     @Severity(SeverityLevel.NORMAL)
     @Test(dataProvider = "notvalid-password-toolong")
-    public void enterNotValidPasswordTooLong(String email, String password, String validityText, String text, String messageColor) {
+    public void enterNotValidPasswordTooLong(String email, String password, String validityText, String text, String color) {
         signUpPageEmail = new SignUpPageEmail();
         signUpPageEmail = new SignUpPageEmail();
         signUpPagePassword = new SignUpPagePassword();
@@ -104,9 +111,11 @@ public class SignUpPagePasswordTest extends MainTest {
         signUpPagePassword.passwordContainerIsDisplayed();
         signUpPagePassword.enterPassword(password);
         assertTrue(signUpPagePassword.displayPasswordMessage());
-        assertEquals(signUpPagePassword.getValidityPasswordMessageColor(), messageColor);
+        assertEquals(signUpPagePassword.getValidityPasswordMessageColor(), color);
         assertEquals(signUpPagePassword.getValidityPasswordMessageText(), validityText);
         assertEquals(signUpPagePassword.getAdditionalTextToolong(), text);
+        assertTrue(signUpPagePassword.verifyPasswordValidityLines());
+        assertEquals(signUpPagePassword.getFirstValidityLineColor(), color);
     }
     @Epic("Sign up a new user")
     @Feature("Password entering")
@@ -125,6 +134,7 @@ public class SignUpPagePasswordTest extends MainTest {
         assertEquals(signUpPagePassword.getValidityPasswordMessageColor(), messageColor);
         assertEquals(signUpPagePassword.getValidityPasswordMessageText(), validityText);
         assertEquals(signUpPagePassword.getAdditionalTextWeak(), text);
+
     }
     @Epic("Sign up a new user")
     @Feature("Password entering")

@@ -36,6 +36,18 @@ public class SignUpPagePassword extends BasePage {
     @FindBy(css = "[data-continue-to=username-container]")
     private WebElement passwordContinueButton;
 
+    @FindBy(css = "#password-err .mb-1:first-child")
+    private WebElement validityLinesContainer;
+
+    @FindBy(css = "#password-err .mb-1:first-child :first-child")
+    private WebElement firstValidityLine;
+
+    @FindBy(css = "#password-err .mb-1:first-child :nth-child(2)")
+    private WebElement secondValidityLine;
+
+    @FindBy(css = "#password-err .mb-1:first-child :nth-child(2)")
+    private WebElement thirdValidityLine;
+
     @Step("Verify password container was loaded")
     public Boolean passwordContainerIsDisplayed() {
         waitForElementToBeVisible(passwordContainer);
@@ -90,7 +102,31 @@ public class SignUpPagePassword extends BasePage {
         return messageText6.getText();
     }
 
-    @Step("Verify the password continue button color")
+    @Step("Password validity lines")
+    public Boolean verifyPasswordValidityLines(){
+        waitForElementToBeVisible(validityLinesContainer);
+        return validityLinesContainer.isDisplayed();
+    }
+    @Step("Verify first validity line visible")
+    public Boolean firstValidityLineVisible(){
+        waitForElementToBeVisible(firstValidityLine);
+        return firstValidityLine.isDisplayed();
+    }
+
+    @Step("Get color of the first validity line")
+    public String getFirstValidityLineColor(){
+        return firstValidityLine.getCssValue("background-color");
+    }
+    @Step("Get color of the second validity line")
+    public String getSecondValidityLineColor(){
+        return secondValidityLine.getCssValue("background-color");
+    }
+    @Step("Get color of the third validity line")
+    public String getThirdValidityLineColor(){
+        return thirdValidityLine.getCssValue("background-color");
+    }
+
+    @Step("Get the color of the password continue button")
     public Boolean verifyPasswordContinueButtonColor(String color) {
         waitForElementColor(passwordContinueButton, color);
         return passwordContinueButton.getCssValue("color").equals(color);
