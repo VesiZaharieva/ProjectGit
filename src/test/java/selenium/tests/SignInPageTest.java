@@ -14,6 +14,7 @@ import utils.CsvReader;
 
 import java.io.IOException;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class SignInPageTest extends MainTest {
@@ -25,7 +26,10 @@ public class SignInPageTest extends MainTest {
     public static Object[][] dataProviderCsvEnterValidUser() throws IOException, CsvException {
         return CsvReader.readFile("src/test/resources/valid-user.csv");
     }
-
+    @DataProvider(name = "notvalid-user")
+    public static Object[][] dataProviderCsvEnterNotValidUser() throws IOException, CsvException {
+        return CsvReader.readFile("src/test/resources/notvalid-user.csv");
+    }
     @BeforeMethod
     private void startSignIn() {
         homePage = new HomePage();
@@ -37,14 +41,27 @@ public class SignInPageTest extends MainTest {
     @Story("Enter valid username and password")
     @Severity(SeverityLevel.NORMAL)
     @Test(dataProvider = "valid-user")
-    public void ValidEmail(String username, String password) {
+    public void ValidUser(String username, String password) {
         signInPage = new SignInPage();
         userPage = new UserPage();
         signInPage.enterValidUsername(username);
         signInPage.enterValidPassword(password);
         signInPage.clickSignInButton();
         assertTrue(userPage.getTitleText().contains(username));
-
+    }
+    @Epic("Sign in a user")
+    @Feature("Sign In a user")
+    @Story("Enter not valid username and / or password")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(dataProvider = "notvalid-user")
+    public void notValidUser(String username, String password) {
+        signInPage = new SignInPage();
+        userPage = new UserPage();
+        signInPage.enterValidUsername(username);
+        signInPage.enterValidPassword(password);
+        signInPage.clickSignInButton();
+        assertTrue(signInPage.errorMessageDisplayed());
+        assertEquals(signInPage.getErrorMessageText(), "Incorrect username or password.");
     }
 
 }

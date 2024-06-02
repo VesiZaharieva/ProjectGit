@@ -9,6 +9,7 @@ public class UserPage extends BasePage {
     @FindBy(css = "[aria-label='Start a new repository'] h4.mb-2")
     private WebElement startNewRepositoryTitle;
 
+
     @Step("Verify the user")
     public String getTitleText(){
         waitForElementToBeVisible(startNewRepositoryTitle);
