@@ -95,7 +95,7 @@ public class MainTest {
                     e.printStackTrace();
                 }
             }
-            DriverFactory.quitDriver();
+            //DriverFactory.quitDriver();
         }
     }
 

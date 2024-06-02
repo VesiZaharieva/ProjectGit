@@ -18,7 +18,7 @@ import static org.testng.Assert.*;
 
 
 public class SignUpPageEmailTest extends MainTest {
-    HomePage homepage;
+    HomePage homePage;
     SignUpPageEmail signUpPageEmail;
 
 
@@ -33,8 +33,8 @@ public class SignUpPageEmailTest extends MainTest {
     }
     @BeforeMethod
     private void startSignUp() {
-        homepage = new HomePage();
-        homepage.clickSignUpButton();
+        homePage = new HomePage();
+        homePage.clickSignUpButton();
     }
     @Epic("Sign up a new user")
     @Feature("E-mail registration")
